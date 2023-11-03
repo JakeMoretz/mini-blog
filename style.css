@@ -61,7 +61,7 @@ main {
 }
 
 .post-container {
-   margin: 10px;
+   margin: 30px auto;
    padding: 20px;
    padding-top: 30px;
    padding-bottom: 50px;
@@ -69,5 +69,4 @@ main {
    width: 100%;
    box-sizing: border-box;
    border-radius: 8px;
-   margin-bottom: 30px;
 }
