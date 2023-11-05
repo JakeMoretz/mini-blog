@@ -5,6 +5,7 @@ body {
     background-color: #010520;
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
+    position: relative;
 }
 
 main {
@@ -64,7 +65,7 @@ main {
    margin: 30px auto;
    padding: 20px;
    padding-top: 30px;
-   padding-bottom: 50px;
+   padding-bottom: 80px;
    background-color: #ecf6fc;
    width: 100%;
    box-sizing: border-box;
@@ -77,6 +78,7 @@ main {
     height: 20px;
     bottom: 10px;
     right: 50px;
+    cursor: pointer;
 }
 
 .up-img {
@@ -84,16 +86,34 @@ main {
     height: 20px;
     bottom: 10px;
     right: 100px;
+    cursor: pointer;
 }
 
 .down-vote-display {
     position: absolute;
     bottom: -4px;
-    right: 20px;
+    right: 25px;
+    color: rgb(158, 33, 33);
 }
 
 .up-vote-display {
     position: absolute;
     bottom: -4px;
     right: 135px;
+    color:#02507b;
+}
+
+.remove-btn {
+    position: absolute;
+    bottom: 10px;
+    left:20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid rgb(0, 0, 0, .20);
+    background-color: transparent;
+    cursor: pointer;
+    padding-inline: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

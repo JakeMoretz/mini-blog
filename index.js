@@ -28,6 +28,7 @@ onValue(blogPostInDb, function (snapshot) {
     for (let i = 0; i < blogPostArray.length; i++) {
         let currentPost = blogPostArray[i];
         addPost(currentPost);
+       
     }
 });
 
@@ -39,10 +40,12 @@ function addPost(itemValue) {
 
     downVoteImg()
     upVoteImg()
+    removeBtn()
     
 }
 
-let count = 10
+let downVoteCount = ""
+let upVoteCount = ""
 
 function downVoteImg() {
     let postContainer = document.querySelector(".post-container")
@@ -54,12 +57,12 @@ function downVoteImg() {
     
     let countDisplay = document.createElement("p");
     countDisplay.className = "down-vote-display";
-    countDisplay.textContent = count;
+    countDisplay.textContent = downVoteCount;
     postContainer.appendChild(countDisplay);
 
     downVoteImg.addEventListener("click", () => {
-        count++;
-        countDisplay.textContent = count;
+        downVoteCount++;
+        countDisplay.textContent = downVoteCount;
     })
 }
 
@@ -73,18 +76,24 @@ function upVoteImg() {
 
     let countDisplay = document.createElement("p");
     countDisplay.className = "up-vote-display";
-    countDisplay.textContent = count;
+    countDisplay.textContent = upVoteCount;
     postContainer.appendChild(countDisplay);
 
     upVoteImg.addEventListener("click", () => {
-        count++;
-        countDisplay.textContent = count;
+        upVoteCount++;
+        countDisplay.textContent = upVoteCount;
     })
 
 }
 
 
-
+function removeBtn() {
+    let postContainer = document.querySelector(".post-container")
+    let removeBtn = document.createElement("button")
+    removeBtn.className="remove-btn"
+    removeBtn.textContent="Remove from feed"
+    postContainer.appendChild(removeBtn)
+}
 
 
 
