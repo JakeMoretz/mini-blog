@@ -21,8 +21,8 @@ const publishBtn = document.querySelector('.publish-btn');
 const postSection = document.querySelector('.container');
 const postInput = document.getElementById('input-field');
 
-let upVoteCount = [];
-let downVoteCount = [];
+let upVoteCount = 0;
+let downVoteCount = 0;
 
 onValue(blogPostInDb, function (snapshot) {
     clearElement();
@@ -37,9 +37,8 @@ onValue(blogPostInDb, function (snapshot) {
     });
 });
 
-const postRef = ref(database, 'blogList/' + postId);
 
-function addPost(itemValue, postUpVoteCount, postDownVoteCount, id) {
+function addPost(itemValue, upVotes, downVotes, id) {
     let newEl = document.createElement('div');
     newEl.className = 'post-container';
 
@@ -49,12 +48,12 @@ function addPost(itemValue, postUpVoteCount, postDownVoteCount, id) {
 
     let upVoteDisplay = document.createElement('p');
     upVoteDisplay.className = 'up-vote-display';
-    upVoteDisplay.textContent = upVoteCount;
+    upVoteDisplay.textContent = upVotes;
     newEl.appendChild(upVoteDisplay);
 
     let downVoteDisplay = document.createElement('p');
     downVoteDisplay.className = 'down-vote-display';
-    downVoteDisplay.textContent = downVoteCount;
+    downVoteDisplay.textContent = downVotes;
     newEl.appendChild(downVoteDisplay);
 
     let upVoteImg = document.createElement('img');
@@ -63,10 +62,9 @@ function addPost(itemValue, postUpVoteCount, postDownVoteCount, id) {
     newEl.appendChild(upVoteImg);
 
     upVoteImg.addEventListener('click', () => {
-        postUpVoteCount++;
-        upVoteDisplay.textContent = postUpVoteCount;
-        upVoteCount.push(postUpVoteCount);
-        console.log(upVoteCount);
+        upVotes++;
+        upVoteDisplay.textContent = upVotes;
+        saveVoteCountsToDatabase(id, upVotes, downVotes);
     });
 
     let downVoteImg = document.createElement('img');
@@ -75,9 +73,9 @@ function addPost(itemValue, postUpVoteCount, postDownVoteCount, id) {
     newEl.appendChild(downVoteImg);
 
     downVoteImg.addEventListener('click', () => {
-        postDownVoteCount++;
-        downVoteDisplay.textContent = postDownVoteCount;
-        downVoteCount.push(postDownVoteCount);
+        downVotes++;
+        downVoteDisplay.textContent = downVotes;
+        saveVoteCountsToDatabase(id, upVotes, downVotes);
     });
 
     let removeBtn = document.createElement('button');
@@ -88,9 +86,18 @@ function addPost(itemValue, postUpVoteCount, postDownVoteCount, id) {
     removeBtn.addEventListener('click', () => {
         const postRef = ref(database, 'blogList/' + id);
         remove(postRef);
+        console.log(id);
     });
 
     postSection.appendChild(newEl);
+}
+
+function saveVoteCountsToDatabase(postId, upVotes, downVotes) {
+    const postRef = ref(database, 'blogList/' + postId);
+    update(postRef, {
+        upVotes: upVotes,
+        downVotes: downVotes,
+    });
 }
 
 function clearElement() {
@@ -107,7 +114,7 @@ publishBtn.addEventListener('click', () => {
     push(blogPostInDb, {
         text: inputValue,
         upVotes: upVoteCount,
-        downVotes: upVoteCount,
+        downVotes: downVoteCount,
     });
 
     clear();
