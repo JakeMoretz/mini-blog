@@ -37,7 +37,6 @@ onValue(blogPostInDb, function (snapshot) {
     });
 });
 
-
 function addPost(itemValue, upVotes, downVotes, id) {
     let newEl = document.createElement('div');
     newEl.className = 'post-container';
@@ -80,7 +79,7 @@ function addPost(itemValue, upVotes, downVotes, id) {
 
     let removeBtn = document.createElement('button');
     removeBtn.className = 'remove-btn';
-    removeBtn.textContent = 'Remove from feed';
+    removeBtn.textContent = 'Remove Post';
     newEl.appendChild(removeBtn);
 
     removeBtn.addEventListener('click', () => {
@@ -119,3 +118,10 @@ publishBtn.addEventListener('click', () => {
 
     clear();
 });
+
+const footer = document.querySelector('.footer');
+const currentYear = new Date().getFullYear();
+const copyEl = document.createElement('p');
+copyEl.textContent = `Creative Minds ${currentYear}`;
+copyEl.className = 'copy-write-text';
+footer.appendChild(copyEl);
